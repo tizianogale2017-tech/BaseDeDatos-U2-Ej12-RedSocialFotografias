@@ -25,3 +25,25 @@ Modelar la estructura conceptual de una red social de fotografía: perfiles de u
 ## Resultado
 
 ![Diagrama](captura.png)
+
+---
+
+## Normalización
+
+Se normaliza el documento `Publicacion` con sus registros de `Comentario`. En todas las tablas la PK va en la primera columna y las FK al final. Los datos son de ejemplo.
+
+**Forma 0.** Una sola tabla con todo junto. Hay celdas con listas: cada publicacion puede tener varios registros de comentario.
+
+![Forma 0](normalizacion/00-forma-0.png)
+
+**1FN.** Cada elemento de la lista pasa a su propia fila y la clave queda compuesta: (`id_publicacion`, `id_comentario`).
+
+![1FN](normalizacion/01-1fn.png)
+
+**2FN.** Los datos de publicacion dependen solo de `id_publicacion`, así que van a `Publicacion`. `Comentario` queda aparte con su propio id y la FK a `Publicacion`.
+
+![2FN](normalizacion/02-2fn.png)
+
+**3FN.** Los datos de `Usuario` dependen de su propio identificador y no de la PK de publicacion, así que pasan a tablas aparte. En el modelo final cada tabla usa su id propio.
+
+![3FN](normalizacion/03-3fn.png)
